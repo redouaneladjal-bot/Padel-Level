@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padel Level Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+    }
+    h1 {
+        text-align: center;
+    }
+    .question {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #218838;
+    }
+    .result {
+        margin-top: 20px;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .promo {
+        margin-top: 30px;
+        padding: 20px;
+        background: #000;
+        color: #fff;
+        border-radius: 12px;
+        text-align: center;
+    }
+    .promo a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+    .promo a:hover {
+        background: #1e7e34;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🎾 Padel Level Calculator</h1>
+
+<form id="padelForm">
+
+<div class="question">
+    <label>How often do you play?</label><br>
+    <select name="frequency">
+        <option value="0">Never</option>
+        <option value="1">Few times per year</option>
+        <option value="2">1-2 times per month</option>
+        <option value="3">1-2 times per week</option>
+        <option value="4">3+ times per week</option>
+    </select>
+</div>
+
+<div class="question">
+    <label>Rally consistency?</label><br>
+    <select name="rally">
+        <option value="0">Cannot rally</option>
+        <option value="1">Short rallies</option>
+        <option value="2">Medium rallies</option>
+        <option value="3">Long consistent rallies</option>
+    </select>
+</div>
+
+<div class="question">
+    <label>Shot control (direction)?</label><br>
+    <select name="control">
+        <option value="0">No control</option>
+        <option value="1">Basic</option>
+        <option value="2">Good</option>
+        <option value="3">Excellent</option>
+    </select>
+</div>
+
+<div class="question">
+    <label>Can you play volleys?</label><br>
+    <select name="volley">
+        <option value="0">No</option>
+        <option value="1">Basic</option>
+        <option value="2">Controlled</option>
+        <option value="3">Advanced</option>
+    </select>
+</div>
+
+<div class="question">
+    <label>Use of tactics (lobs, positioning)?</label><br>
+    <select name="tactics">
+        <option value="0">None</option>
+        <option value="1">Basic</option>
+        <option value="2">Good</option>
+        <option value="3">Advanced</option>
+    </select>
+</div>
+
+<div class="question">
+    <label>Unforced errors?</label><br>
+    <select name="errors">
+        <option value="3">Very few</option>
+        <option value="2">Some</option>
+        <option value="1">Many</option>
+        <option value="0">Constant errors</option>
+    </select>
+</div>
+
+<button type="button" onclick="calculateLevel()">Calculate My Level</button>
+
+</form>
+
+<div id="result" class="result" style="display:none;"></div>
+
+<!-- 🔥 PROMO SECTION -->
+<div class="promo">
+    <h2>🔥 Try PadelTap Audio</h2>
+    <p>Your Apple Watch score tracker with real-time audio announcements.</p>
+    <p>Play hands-free. Stay focused. Enjoy the game.</p>
+    <a href="https://apps.apple.com/sa/app/padeltap-audio/id6761938802" target="_blank">
+        Download PadelTap Audio
+    </a>
+</div>
+
+<script>
+function calculateLevel() {
+    const form = document.forms["padelForm"];
+    
+    let score = 0;
+    score += parseInt(form["frequency"].value);
+    score += parseInt(form["rally"].value);
+    score += parseInt(form["control"].value);
+    score += parseInt(form["volley"].value);
+    score += parseInt(form["tactics"].value);
+    score += parseInt(form["errors"].value);
+
+    let level = (score / 18) * 7;
+    level = Math.round(level * 2) / 2;
+
+    let description = "";
+
+    if (level < 1.5) description = "Beginner";
+    else if (level < 3) description = "Improving";
+    else if (level < 4.5) description = "Intermediate";
+    else if (level < 5.5) description = "Advanced";
+    else description = "High Advanced";
+
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").innerHTML =
+        `Your Level: ${level} <br> Category: ${description}`;
+}
+</script>
+
+</body>
+</html>
